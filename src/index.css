@@ -1,0 +1,23 @@
+body {
+  background: rgb(129, 129, 134);
+  background: radial-gradient(
+    circle,
+    rgba(129, 129, 134, 1) 0%,
+    rgba(104, 107, 119, 1) 100%
+  );
+  height: 100vh; /* Set the height of the body to the full height of the viewport */
+  width: 100vw; /* Set the width of the body to 100% of the viewport */
+  overflow: hidden; /* Disable scrolling */
+}
+
+.app {
+  background: rgb(78, 82, 150);
+  background: radial-gradient(
+    circle,
+    rgba(78, 82, 150, 1) 0%,
+    rgba(46, 44, 98, 1) 100%
+  );
+  height: 100vh; /* Set the height of the body to the full height of the viewport */
+  width: 100vw; /* Set the width of the body to 100% of the viewport */
+  overflow: hidden; /* Disable scrolling */
+}
