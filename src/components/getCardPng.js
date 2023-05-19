@@ -56,48 +56,73 @@ import acediamonds from "./cardpngs/ace_of_diamonds.png";
 
 import back from "./cardpngs/back.png";
 
-const getCardPng = (card) => {
-  if(card){
-    const id = card.id;
-    // back_____________________________
-    if (card.suit === "back") {
-      return back;
-    }
-    // clubs_______________________________________________
-    if(id==="1"){return aceclubs}
-    if(id==="2"){return tenclubs}
-    if(id==="3"){return kingclubs}
-    if(id==="4"){return queenclubs}
-    if(id==="5"){return jackclubs}
-    if(id==="6"){return nineclubs}
-    
-    // spades____________________________________
-    if(id==="7"){return acespades}
-    if(id==="8"){return tenspades}
-    if(id==="9"){return kingspades}
-    if(id==="10"){return queenspades}
-    if(id==="11"){return jackspades}
-    if(id==="12"){return ninespades}
-    
-    // hearts_______________________________________________
-    if(id==="13"){return acehearts}
-    if(id==="14"){return tenhearts}
-    if(id==="15"){return kinghearts}
-    if(id==="16"){return queenhearts}
-    if(id==="17"){return jackhearts}
-    if(id==="18"){return ninehearts}
-    
-    // diamonds_______________________________________________
-  
-    if(id==="19"){return acediamonds}
-    if(id==="20"){return tendiamonds}
-    if(id==="21"){return kingdiamonds}
-    if(id==="22"){return queendiamonds}
-    if(id==="23"){return jackdiamonds}
-    if(id==="24"){return ninediamonds}
-    
-    
-  }
-  
+const preloadedCardImages = {};
+
+const cardImages = {
+  "1": aceclubs,
+  "2": tenclubs,
+  "3": kingclubs,
+  "4": queenclubs,
+  "5": jackclubs,
+  "6": nineclubs,
+  "7": acespades,
+  "8": tenspades,
+  "9": kingspades,
+  "10": queenspades,
+  "11": jackspades,
+  "12": ninespades,
+  "13": acehearts,
+  "14": tenhearts,
+  "15": kinghearts,
+  "16": queenhearts,
+  "17": jackhearts,
+  "18": ninehearts,
+  "19": acediamonds,
+  "20": tendiamonds,
+  "21": kingdiamonds,
+  "22": queendiamonds,
+  "23": jackdiamonds,
+  "24": ninediamonds,
+  "25": back,
 };
+
+function preloadCardImages() {
+  for (const key in cardImages) {
+    const image = new Image();
+    image.src = cardImages[key];
+    preloadedCardImages[key] = image;
+  }
+}
+
+
+const getCardPng = (card) => {
+  let id = "";
+  if (card) {
+    if (card.suit === "back") {
+          id = "25"
+    }
+    else {
+          id = card.id;
+
+    }
+    
+
+
+    // Preload the card image if not already preloaded
+    if (!preloadedCardImages[id]) {
+      const image = new Image();
+      image.src = cardImages[id];
+      preloadedCardImages[id] = image;
+    }
+
+    // Return the card image URL
+    return cardImages[id];
+  }
+
+  // Return the default card back image URL
+  return cardImages.back;
+};
+
+preloadCardImages();
+
 export default getCardPng;
