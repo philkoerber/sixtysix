@@ -5,20 +5,29 @@ import Card from "./Card";
 import useGameStore from "./gameStore";
 
 import rotateHandCard from "./rotateHandCard";
+import offsetHandCard from "./offsetHandCard";
 
 import cardPositions from "./cardPositions";
-
-
-const currentPlayer = -1;
-
+import { isPlayerMoveLegal } from "./gameLogic";
 
 const PlayerHand = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const {playerHand, setPlayerHand, setPlayedCards, currentPlayer, setCurrentPlayer} = useGameStore();
   const [sortedHand, setSortedHand] = useState([])
   const [handcopy, setHandcopy] = useState([]);
+
+  const {
+    playerHand,
+    setPlayerHand,
+    playedCards,
+    setPlayedCards,
+    currentPlayer,
+    setCurrentPlayer,
+    isPlayerSwitchingTrumpCard,
+    setIsPlayerSwitchingTrumpCard,
+    talonClosed,
+    drawStack,
+    drawTrumpCard} = useGameStore();
 
   
   useEffect(() => {
@@ -35,33 +44,61 @@ const PlayerHand = () => {
   }, [playerHand]);
 
   useEffect(() => {
+    //only for animation purposes
     if (playerHand && selectedCard) {
       const leftHandCards = sortedHand.filter((card) => card != selectedCard);
       setHandcopy(leftHandCards);
     }
   }, [selectedCard]);
 
+  useEffect(() => {
+    if (isPlayerSwitchingTrumpCard === "player") {
+      const findNine = playerHand.find(card => card.rank === 0);
+      if (findNine && isPlayerSwitchingTrumpCard) {
+        drawTrumpCard("player");
+        setTimeout(() => {
+          setSelectedCard(findNine);
+        }, 600);
+        
+    }
+    }
+  },[isPlayerSwitchingTrumpCard])
 
-  
-
-  const handleClick = (card) => {
-      if(currentPlayer==="player"){
-        setCurrentPlayer("opp");
+    const handleClick = (card) => {
+      if (currentPlayer === "player" && !isPlayerSwitchingTrumpCard) {
+        if (talonClosed || drawStack === 0) {
+          const playedCardByOpp = playedCards?.opp
+          if (playedCardByOpp) {
+            if (isPlayerMoveLegal(card, playedCardByOpp, playerHand, drawStack[0])) {
+              setCurrentPlayer(null)
+              setSelectedCard(card)
+            }
+            else {
+              console.log("your move is illegal!")
+              return null
+            }
+          }
+          
+        }
+        setCurrentPlayer(null);
         setSelectedCard(card)
       }
-      else{console.log("not your turn!")}
-    }
-
-      
-
+      else{console.log("you cannot play a card now!")}
+  }
+  
   const handlePlayCard = (card) => {
-    setSelectedCard(null);
+    if (!isPlayerSwitchingTrumpCard) {
+      setSelectedCard(null);
     setPlayedCards(card, "player");
     setPlayerHand(handcopy);
+    }
+    else {
+      setIsPlayerSwitchingTrumpCard(false, card);
+      setPlayerHand(handcopy)
+    }
+    
   };
   
-
-
   return (
     <div className="handDiv">
       {sortedHand.map((card, index) => (
@@ -70,30 +107,29 @@ const PlayerHand = () => {
           style={{
             position: "absolute",
             ...cardPositions.drawStack,
-            transform: "rotate(0deg)",
           }}
+          initial={{transform: (!isPlayerSwitchingTrumpCard?"rotate(0deg)":"rotate(90deg)")}}
           onClick={() => handleClick(card)}
           className={"card"}
-          onHoverStart={()=>setHoveredCard(card)}
-          onHoverEnd={()=>setHoveredCard(null)}
           animate={
             selectedCard === card
               ? {
                   animationId: "playedCard",
-                  ...cardPositions.playerCard,
-                  zIndex: index+10,
-                  transform: `rotate(0deg)`,
+                  ...((!isPlayerSwitchingTrumpCard)?cardPositions.playerCard:cardPositions.trumpCard),
+                  zIndex: (!isPlayerSwitchingTrumpCard)?index+10:0,
+                  transform: (!isPlayerSwitchingTrumpCard)?`rotate(0deg)`:`rotate(90deg)`,
                   transition: { type: "spring", bounce: 0 },
                 }
               : {
-                  left: `${20 +(handcopy.indexOf(card) / handcopy.length) * 40}vw`,
-                  top: "88vh",
+                  left: `${24.5 +(handcopy.indexOf(card) / handcopy.length) * 50}%`,
+                  top: `${offsetHandCard(handcopy.length, handcopy.indexOf(card)) + 87}vh`,
+                  scale: 1.2,
                   zIndex: index+10,
                   transform: `rotate(${rotateHandCard(
                     handcopy.length,
                     handcopy.indexOf(card)
                   )}deg)`,
-                  transition: { type: "spring", bounce: 0 },
+                  transition: { type: "spring", bounce: 0.1 },
                 }
             
           }

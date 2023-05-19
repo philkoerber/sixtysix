@@ -15,8 +15,7 @@ const Card = ({ card }) => {
       style={{
         borderRadius: 4,
         //base cardSize on screen size
-        maxWidth: "18vw",
-        maxHeight: "18vh"
+        maxHeight: "16vh"
       }}
     />
   );

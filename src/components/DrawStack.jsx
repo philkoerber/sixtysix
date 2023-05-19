@@ -8,7 +8,7 @@ import cardPositions from './cardPositions';
 
 
 function DrawStack() {
-    const {drawStack, playerDrawsCard, gameInitialized} = useGameStore();
+    const {drawStack, playerDrawsCard, gameInitialized, isPlayerSwitchingTrumpCard} = useGameStore();
 
     const drawCard = (targetPlayer) => {
         playerDrawsCard(targetPlayer);
@@ -20,7 +20,7 @@ function DrawStack() {
             style={{
               position: "absolute",
               ...cardPositions.drawStack,
-              zIndex: 1
+              zIndex: 100
             }}
           >
             {drawStack.length > 1 ? <Card card={{suit:"back"}}/> : null}
@@ -40,7 +40,7 @@ function DrawStack() {
             }}
             
           >
-            {true ? <Card card={drawStack[0]}/> : null}
+            {!isPlayerSwitchingTrumpCard ? <Card card={drawStack[0]}/> : null}
           </motion.div>
 
         </div>

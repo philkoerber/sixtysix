@@ -7,7 +7,7 @@ import { compareTrick } from './gameLogic';
 
 
 function PlayStack() {
-    const {playedCards, endTrick} = useGameStore();
+    const {playedCards, endTrick, drawStack, setCurrentPlayer} = useGameStore();
     const [trick, setTrick] = useState({done: false, winner: null});
     const [firstCard, setFirstCard] = useState("")
 
@@ -16,9 +16,17 @@ function PlayStack() {
             setFirstCard("opp")
         }
         else(setFirstCard("player"))
+        if(playedCards.opp&&playedCards.player===null){
+            setCurrentPlayer("player")
+        }
+        if(playedCards.player&&playedCards.opp===null){
+            setCurrentPlayer("opp")
+        }
         if (playedCards.opp && playedCards.player) {
         //if both players played a card, handle logic
-          const trickWinner = compareTrick(playedCards);
+            const trickWinner = compareTrick(playedCards, drawStack);
+            
+            
           const winner = playedCards.player === trickWinner ? "player" : "opp";
           setTimeout(() => {
             setTrick({ done: true, winner: winner });
@@ -32,8 +40,8 @@ function PlayStack() {
         }
       }, [playedCards]);
 
-    const animation = {top: trick.winner==="player"?"110vh":"-20vh",
-    left: "45vw",
+    const animation = {top: trick.winner==="player"?"110%":"-20%",
+    left: "45%",
     transition:{type:"spring", bounce: 0}}
 
     return (
