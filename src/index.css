@@ -82,6 +82,7 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
+  z-index: 300;
   top: 0;
   left: 0;
   right: 0;
@@ -95,21 +96,13 @@ body {
   z-index: 30;
   width: 90%;
   max-width: 500px;
-  height: 50vh;
-  max-height: 50%;
+
   text-align: center;
 
   color: white;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.02); /* slightly transparent white */
-  backdrop-filter: blur(16px); /* apply a 5px blur to the background */
-}
-
-.gamePoints {
-  position: absolute;
-  color: white;
-  right: 5%;
-  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(32px);
 }
 
 .talonClosed {

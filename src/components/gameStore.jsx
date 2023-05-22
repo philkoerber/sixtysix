@@ -98,7 +98,7 @@ const testTricks = []
 
 
 const useGameStore = create((set)=>({
-    gameStarted: true,
+    gameStarted: false,
     setGameStarted: (boolean) => set(()=>({gameStarted: boolean})),
 
     gameInitialized: false,

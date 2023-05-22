@@ -18,22 +18,28 @@ function GameStates(props) {
                 {/* POINTS */}
                 <motion.div
                     key={playerPoints.opp + "opp"}
-                    style={{ marginTop: "15vh" }}
-                    className='gamePoints'
+                    style={{ marginTop: "15vh", position: "absolute", right: "3%" }}
                     initial={{ y: "-150px", opacity: 0 }}
                     animate={{ y: "0px", opacity: 1 }}
                     exit={{ y: "150px", opacity: 0 }}>
-                    <Heading textShadow="1px 1px 5px #000000" fontSize={"12vh"}>{playerPoints.opp}</Heading>
+                    <Heading
+                        fontFamily="cardFont"
+                        textShadow="1px 1px 5px #000000"
+                        fontSize={["100", "120", "130"]}
+                        color={'white'}>{playerPoints.opp}</Heading>
                 </motion.div>
 
                 <motion.div
                     key={playerPoints.player + "player"}
-                    style={{ marginTop: "70vh" }}
-                    className='gamePoints'
+                    style={{ marginTop: "70vh", position: "absolute", right: "3%"}}
                     initial={{ y: "-150px", opacity: 0 }}
                     animate={{ y: "0px", opacity: 1 }}
                     exit={{ y: "150px", opacity: 0 }}>
-                    <Heading textShadow="1px 1px 5px #000000" fontSize={"12vh"}>{playerPoints.player}</Heading>
+                    <Heading
+                        fontFamily="cardFont"
+                        textShadow="1px 1px 5px #000000"
+                        fontSize={["100", "110", "130"]}
+                        color={'white'}>{playerPoints.player}</Heading>
                 </motion.div>
 
 
@@ -45,7 +51,11 @@ function GameStates(props) {
                     animate={talonClosed ? { opacity: 1, scale: 1, rotate: -38 } : {}}
                     exit={{ opacity: 0 }}
                 >
-                    <Heading textShadow="1px 1px 10px #000000" fontSize={"5vh"}>CLOSED!</Heading>
+                    <Heading
+                        fontFamily="cardFont"
+                        textShadow="1px 1px 10px #000000"
+                        fontSize={["38", "45", "50"]}>
+                        CLOSED!</Heading>
                 </motion.div>
 
                 {/* MARRIAGES */}

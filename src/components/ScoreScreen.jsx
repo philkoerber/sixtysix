@@ -1,8 +1,17 @@
-import { Box, Heading, Text, SimpleGrid, Button } from '@chakra-ui/react';
+import { Box, Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import useGameStore from './gameStore';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const buttonStyles = {
+    maxW: "180px",
+    size: "md",
+    fontSize: ["18px", "19px", "20px"],
+    fontFamily: "bodyFont",
+    variant: "outline",
+    color: "white",
+    _hover: {bg: "#3E6990"}
+}
 
 function ScoreScreen(props) {
   const {
@@ -36,7 +45,7 @@ function ScoreScreen(props) {
   });
 
   Promise.all(timeoutFunctions.map((fn) => fn())).then(() => {
-    
+    console.log("counting done")
   });
     }, []);
     
@@ -52,92 +61,98 @@ function ScoreScreen(props) {
 
     return (
         <AnimatePresence>
-            <motion.div className='scoreScreenWrapper'>
-                <div className='scoreScreen'>
-            
-                    {/* HEADING */}
-                    <motion.div key={""} {...animateStyles}>
-                    <SimpleGrid columns={2}>
-                <Heading>You</Heading>
-                 <Heading>Opponent</Heading>
-                </SimpleGrid>
+      <motion.div className='scoreScreenWrapper' >
+          <div
+            className='scoreScreen'>
+            <Table
+              variant='simple'
+              fontFamily="bodyFont"
+              marginBottom={10}>
+            <Thead >
+              <Tr >
+                <Th color='white' fontSize="20">Game Points</Th>
+                <Th color='white'>Player 1</Th>
+                <Th color={'white'}>Player 2</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
 
-                    </motion.div>
+              {/* Trick */}
+              <Tr>
+                <Td fontWeight='bold'>TRICKS</Td>
+                <Td>10</Td>
+                <Td>8</Td>
+                </Tr>
                 
+              {/* Announcements */}
+              <Tr>
+                <Td fontWeight='bold'>MARRIAGES</Td>
+                <Td>20</Td>
+                <Td>40</Td>
+              </Tr>
 
-            {/* MARRIAGES */}
-            <motion.div key={"marriages"} {...animateStyles}>
-              <Heading>Marriages</Heading>
-                <SimpleGrid columns={2}>
-                <Box>
-              {marriages.player.map((marriage, i)=>{return(
-              <div key={i}>
-             <Text>{marriage.suit} {marriage.points}</Text>
-                 </div>
-                  )})}
-                      </Box>
-                  <Box>
-                  {marriages.opp.map((marriage, i)=>{return(
-               <div key={i}>
-               <Text>{marriage.suit} {marriage.points}</Text>
-              </div>
-                     )})}
-  </Box>
-                
-                </SimpleGrid>
-
+              {/* Total */}
+              <Tr>
+                <Td fontWeight='bold'>TOTAL</Td>
+                <Td>56</Td>
+                <Td>42</Td>
+              </Tr>
               
-            </motion.div>
-                
-            <motion.div  key={"tricks"} {...animateStyles}>
-                    <Heading>Tricks</Heading>
-                {/* POINTS FROM TRICKS */}
-                <SimpleGrid columns={2}>
-                        <Box>
-                            <motion.div key={trickPointsPlayer + "player"} {...animateStyles}>
-                             <Text>
-                            {trickPointsPlayer}
-                            </Text>
-                            </motion.div>
-                           
-                    </Box>
-                        <Box>
-                            <motion.div key={trickPointsOpp + "opp"} {...animateStyles}>
-                             <Text>
-                            {trickPointsOpp}
-                            </Text>
-                            </motion.div>
-                        
-                </Box>
-     </SimpleGrid>
+              </Tbody>
+              
+            </Table>
 
-            </motion.div>
+            <Table variant='simple' fontFamily="bodyFont" marginBottom={10}>
+            <Thead >
+              <Tr >
+                <Th color='white' fontSize="20">Round Points</Th>
+                <Th color='white'>Player 1</Th>
+                <Th color={'white'}>Player 2</Th>
+              </Tr>
+            </Thead>
+              <Tbody>
                 
-  
-                {/* TALON CLOSED? */}
-                <Heading>{talonClosed?"Talon closed...":null}</Heading>
-                <SimpleGrid columns={2}>
+               {/* Trick */}
+              <Tr>
+                <Td fontWeight='bold'>WON GAME</Td>
+                <Td>0</Td>
+                <Td>0</Td>
+                </Tr>
+
+              {/* Trick */}
+              <Tr>
+                <Td fontWeight='bold'>CLOSED TALON</Td>
+                <Td>0</Td>
+                <Td>0</Td>
+                </Tr>
                 
-                    <Box>{talonClosed === "player"
-                        ?
-                        <>
-                            <Text>...by player</Text>
-                        <Text></Text>
-                        </>
-                        
-                        : null}</Box>
-                    <Box>{talonClosed === "opp" ? "...by opponent" : ""}</Box>
-            </SimpleGrid>
-            
-              <Button onClick={()=>{handleNextClick()}} fontSize="25px" size={"md"} variant={"outline"}>Next...</Button>
-                    
-        </div>
-                    
+              {/* Announcements */}
+              <Tr>
+                <Td fontWeight='bold'>WIN DECLARED</Td>
+                <Td>0</Td>
+                <Td>0</Td>
+              </Tr>
+
+              {/* Total */}
+              <Tr>
+                <Td fontWeight='bold'>TOTAL</Td>
+                <Td>3</Td>
+                <Td>0</Td>
+              </Tr>
+              
+              </Tbody>
+              
+            </Table>
+
+            <Button {...buttonStyles} onClick={handleNextClick}>
+            Next...
+            </Button>
+          </div>
+           
         </motion.div>
-        
-
-        </AnimatePresence>
-        
+       
+    </AnimatePresence>
+  
         
     );
 }

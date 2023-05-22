@@ -19,7 +19,7 @@ function App() {
             <Game />
           </motion.div>
         ) : (
-          <motion.div
+            <motion.div
             key="welcome"
             initial={{ opacity: 0}}
             animate={{ opacity: 1 }}

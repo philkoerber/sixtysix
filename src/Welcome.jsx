@@ -47,33 +47,60 @@ function Welcome(props) {
  
     return (
         <div className='welcomewrapper'>
-            <Box fontFamily={"revert-layer"}>
+            <Box fontFamily="bodyFont">
 
                 
                 <motion.div className='welcome'>
                   <Text>welcome to...</Text>
-                  <Heading textShadow="1px 1px 30px #000000" letterSpacing={40} fontSize={"80"}>SIXTYSIX</Heading>
-                  <motion.div initial={{scale: 0}} animate={animationIndex>0?{scale: 1}:{}} onClick={handleStartButton} whileHover={{ scale: 1.4 }} whileTap={{ scale: 0.9 }}
-     style={{margin: "50px"}}><Text textShadow="1px 1px 3px #000000" fontSize={"30"}>Play!</Text></motion.div>
-                <motion.img className="sixtysixSvg"
-                initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(50px)"}}
+            <Heading
+              textShadow="1px 1px 30px #000000"
+              letterSpacing={[10, 40]}
+              fontSize={[50,80]}
+              fontFamily="cardFont">SIXTYSIX</Heading>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={animationIndex > 0 ? { scale: 1 } : {}}
+              onClick={handleStartButton}
+              whileHover={{ scale: 1.4 }}
+              whileTap={{ scale: 0.9 }}
+              style={{ margin: "50px" }}>
+              <Text
+                textShadow="1px 1px 3px #000000"
+                fontSize={"40"}
+                fontFamily="cardFont"
+              >
+                Play!</Text></motion.div>
+            <motion.img
+              className="sixtysixSvg"
+                initial={{ opacity: 0, scale: 0.9}}
                 animate={{ opacity: 1, scale: 1.3 }}
                 transition={{ duration: 8 }} src={sixtysix} />
                 </motion.div>
                 
                 
       {/* RULESET MODAL */}
-      <motion.div onClick={onOpen} whileHover={{ scale: 1.2 }}
-    whileTap={{ scale: 0.9 }} className="welcome" initial={{scale: 0}} animate={animationIndex>1?{rotate: -6, scale: 1, x: "-40%"}:{}}>
-                <Text textShadow="1px 1px 3px #000000">Dont know the Rules?</Text>
-                <Text textShadow="1px 1px 3px #000000" fontSize={32}>Read the Rules...</Text>
+          <motion.div
+            onClick={onOpen}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            className="welcome"
+            initial={{ scale: 0 }}
+            animate={animationIndex > 1 ? { rotate: -6, scale: 1, x: "-20%" } : {}}>
+            <Text
+              textShadow="1px 1px 3px #000000" fontSize={[18, 20]}>Dont know the Rules?</Text>
+            <Text
+              textShadow="1px 1px 3px #000000" fontSize={[35, 40]}>Read the Rules...</Text>
                 </motion.div>
 
       
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
-        <ModalOverlay bg='blackAlpha.200'
+            <ModalOverlay
+              bg='blackAlpha.200'
       backdropFilter='blur(10px)'/>
-        <ModalContent maxW={"800px"} bgGradient="linear(to-t, #a0a7d1, #e1e1f5)">
+            <ModalContent
+              maxW={"800px"}
+              bgGradient="linear(to-t, #a0a7d1, #e1e1f5)"
+              fontFamily="bodyFont">
           <ModalHeader >Rules of Sixty-Six</ModalHeader>
           <ModalCloseButton />
           <RulesetBody/>
@@ -84,9 +111,16 @@ function Welcome(props) {
       </Modal>
     
     {/* CONTACT ME MODAL */}
-      <motion.div whileHover={{ scale: 1.2 }}
-    whileTap={{ scale: 0.9 }} className="welcome" initial={{scale: 0}} animate={animationIndex>2?{rotate: 12, scale: 1, x: "30%"}:{}}><Text textShadow="1px 1px 3px #000000">You like the App?</Text>
-    <Text textShadow="1px 1px 3px #000000" fontSize={32}>Contact me!</Text></motion.div>
+          <motion.div
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            className="welcome"
+            initial={{ scale: 0 }}
+            animate={animationIndex > 2 ? { rotate: 12, scale: 1, x: "25%", y: "20%" } : {}}>
+            <Text
+              textShadow="1px 1px 3px #000000"
+              fontSize={[15, 20]}>You like the App?</Text>
+    <Text textShadow="1px 1px 3px #000000" fontSize={[30 ,40]}>Contact me...</Text></motion.div>
     
             </Box>
         </div>
