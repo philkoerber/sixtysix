@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
-import Card from "./Card";
+import Card from "./utilities/Card";
 import useGameStore from "./gameStore";
 
-import rotateHandCard from "./rotateHandCard";
-import offsetHandCard from "./offsetHandCard";
+import rotateHandCard from "./utilities/rotateHandCard";
+import offsetHandCard from "./utilities/offsetHandCard";
 
-import cardPositions from "./cardPositions";
-import { isPlayerMoveLegal } from "./gameLogic";
+import cardPositions from "./utilities/cardPositions";
+import { isPlayerMoveLegal } from "./utilities/gameLogic";
 
 const PlayerHand = () => {
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getShuffledDeck } from './gameLogic';
+import { getShuffledDeck } from './utilities/gameLogic';
 
 // const testTricks = [
 //     {
@@ -98,7 +98,7 @@ const testTricks = []
 
 
 const useGameStore = create((set)=>({
-    gameStarted: false,
+    gameStarted: true,
     setGameStarted: (boolean) => set(()=>({gameStarted: boolean})),
 
     gameInitialized: false,
@@ -117,7 +117,7 @@ const useGameStore = create((set)=>({
 
     currentPlayer: null,
     setCurrentPlayer: (newCurrentPlayer) => set(()=>({currentPlayer: newCurrentPlayer})),
-    tricks: testTricks,
+    tricks: [],
     
     initializeDeck: () =>
     set((state) => {

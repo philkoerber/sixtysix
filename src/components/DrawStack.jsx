@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import useGameStore from './gameStore';
-import Card from './Card';
+import Card from './utilities/Card';
 import { motion } from "framer-motion";
-import cardPositions from './cardPositions';
+import cardPositions from './utilities/cardPositions';
 
 
 

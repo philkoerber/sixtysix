@@ -41,7 +41,7 @@ function Marriage(props) {
                 animate={{scale: 1}}
             >
             <Heading textShadow="1px 1px 3px #000000" fontSize={"4.5vh"}>
-                {props.points}
+                +{props.points}
             </Heading>
             </motion.div>
             

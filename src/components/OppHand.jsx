@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
-import Card from "./Card";
+import Card from "./utilities/Card";
 import useGameStore from "./gameStore";
 
-import rotateHandCard from "./rotateHandCard";
-import offsetHandCard from "./offsetHandCard";
+import rotateHandCard from "./utilities/rotateHandCard";
+import offsetHandCard from "./utilities/offsetHandCard";
 
-import cardPositions from "./cardPositions";
-import {getOpponentsCard} from "./gameLogic"
+import cardPositions from "./utilities/cardPositions";
+import {getOpponentsCard} from "./utilities/gameLogic"
 
 
 const OppHand = ({}) => {
@@ -101,8 +101,8 @@ const OppHand = ({}) => {
             }
           }}
         >
-          {/* <Card card={selectedCard === card ? card : { suit: "back" }} /> */}
-          <Card card={selectedCard===card?card:card} />
+          <Card card={selectedCard === card ? card : { suit: "back" }} />
+          {/* <Card card={selectedCard===card?card:card} /> */}
 
         </motion.div>
       ))}

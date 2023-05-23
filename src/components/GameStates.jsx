@@ -2,7 +2,7 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button, Heading, Box } from '@chakra-ui/react';
 import useGameStore from './gameStore';
-import Marriage from './Marriage';
+import Marriage from './utilities/Marriage';
 
 function GameStates(props) {
     const {

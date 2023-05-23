@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card';
+import Card from './utilities/Card';
 import { motion } from 'framer-motion';
 import useGameStore from './gameStore';
-import cardPositions from './cardPositions';
-import { compareTrick } from './gameLogic';
+import cardPositions from './utilities/cardPositions';
+import { compareTrick } from './utilities/gameLogic';
 
 
 function PlayStack() {

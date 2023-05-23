@@ -54,7 +54,7 @@ function PlayerUI() {
     }
 
     const handleMarriageClick = (marriageSuit) => {
-        setMarriages("player", {suit: marriageSuit, points: "+40"})
+        setMarriages("player", {suit: marriageSuit, points: 40})
     }
 
     const handleSwitchClick = () => {

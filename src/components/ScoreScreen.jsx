@@ -1,7 +1,9 @@
-import { Box, Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import useGameStore from './gameStore';
 import { AnimatePresence, motion } from 'framer-motion';
+import AnimateScore from './utilities/AnimateScore';
+import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai"
 
 const buttonStyles = {
     maxW: "180px",
@@ -14,6 +16,7 @@ const buttonStyles = {
 }
 
 function ScoreScreen(props) {
+
   const {
     marriages,
     talonClosed,
@@ -22,41 +25,34 @@ function ScoreScreen(props) {
     
     const [trickPointsPlayer, setTrickPointsPlayer] = useState(0)
     const [trickPointsOpp, setTrickPointsOpp] = useState(0)
+  
+    const [marriagesPlayer, setMarriagesPlayer] = useState(0)
+    const [marriagesOpp, setMarriagesOpp] = useState(0)
 
-    useEffect(() => {
-  const updatePoints = (trick) => {
-    const trickPoints = Number(trick.player.rank) + Number(trick.opp.rank);
-    if (trick.winner === "player") {
-      setTrickPointsPlayer((prevPoints) => prevPoints + trickPoints);
-    } else {
-      setTrickPointsOpp((prevPoints) => prevPoints + trickPoints);
-    }
-  };
 
-  const timeoutFunctions = tricks.map((trick, i) => {
-    return () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          updatePoints(trick);
-          resolve();
-        }, 300 * (i + 1));
-      });
-    };
-  });
-
-  Promise.all(timeoutFunctions.map((fn) => fn())).then(() => {
-    console.log("counting done")
-  });
-    }, []);
     
-    const animateStyles = {
-        initial: { opacity: 0, scale: 2, y: "-20px" },
-        animate: { opacity: 1, scale: 1, y: "0px" },
-    }
-
   const handleNextClick = () => {
       resetGame()
-    }
+  }
+  
+  useEffect(() => {
+    let oppPoints = 0;
+    tricks.map((trick) => { if (trick.winner === "opp") { oppPoints = oppPoints + trick.opp.rank + trick.player.rank } })
+    setTrickPointsOpp(oppPoints)
+
+    let playerPoints = 0;
+    tricks.map((trick) => { if (trick.winner === "player") { playerPoints = playerPoints + trick.opp.rank + trick.player.rank } })
+    setTrickPointsPlayer(playerPoints)
+
+    oppPoints = 0;
+    marriages.opp.map((marriage) => { oppPoints = oppPoints + marriage.points });
+    setMarriagesOpp(oppPoints);
+
+    playerPoints = 0;
+    marriages.player.map((marriage) => { playerPoints = playerPoints + marriage.points });
+    setMarriagesPlayer(playerPoints);
+    console.log(playerPoints)
+  },[])
 
 
     return (
@@ -68,34 +64,39 @@ function ScoreScreen(props) {
               variant='simple'
               fontFamily="bodyFont"
               marginBottom={10}>
-            <Thead >
+              <Thead >
+                
               <Tr >
                 <Th color='white' fontSize="20">Game Points</Th>
                 <Th color='white'>Player 1</Th>
-                <Th color={'white'}>Player 2</Th>
+                <Th color='white'>Player 2</Th>
               </Tr>
             </Thead>
             <Tbody>
 
-              {/* Trick */}
-              <Tr>
+                  <Tr>
                 <Td fontWeight='bold'>TRICKS</Td>
-                <Td>10</Td>
-                <Td>8</Td>
+                  <Td><AnimateScore>{trickPointsPlayer}</AnimateScore></Td>
+                  <Td><AnimateScore>{trickPointsOpp}</AnimateScore></Td>
                 </Tr>
+
+              {/* Trick */}
+              
                 
               {/* Announcements */}
               <Tr>
                 <Td fontWeight='bold'>MARRIAGES</Td>
-                <Td>20</Td>
-                <Td>40</Td>
+                <Td><AnimateScore>{marriagesPlayer}
+                  </AnimateScore></Td>
+                <Td><AnimateScore>{marriagesOpp}
+                  </AnimateScore></Td>
               </Tr>
 
               {/* Total */}
               <Tr>
                 <Td fontWeight='bold'>TOTAL</Td>
-                <Td>56</Td>
-                <Td>42</Td>
+                <Td><AnimateScore>{trickPointsPlayer}+{marriagesPlayer}</AnimateScore></Td>
+                  <Td><AnimateScore>{trickPointsOpp}+{marriagesOpp}</AnimateScore></Td>
               </Tr>
               
               </Tbody>
@@ -107,7 +108,7 @@ function ScoreScreen(props) {
               <Tr >
                 <Th color='white' fontSize="20">Round Points</Th>
                 <Th color='white'>Player 1</Th>
-                <Th color={'white'}>Player 2</Th>
+                <Th color='white'>Player 2</Th>
               </Tr>
             </Thead>
               <Tbody>
@@ -115,29 +116,36 @@ function ScoreScreen(props) {
                {/* Trick */}
               <Tr>
                 <Td fontWeight='bold'>WON GAME</Td>
-                <Td>0</Td>
-                <Td>0</Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
+                <Td></Td>
                 </Tr>
 
               {/* Trick */}
               <Tr>
                 <Td fontWeight='bold'>CLOSED TALON</Td>
-                <Td>0</Td>
-                <Td>0</Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
                 </Tr>
                 
               {/* Announcements */}
               <Tr>
                 <Td fontWeight='bold'>WIN DECLARED</Td>
-                <Td>0</Td>
-                <Td>0</Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
               </Tr>
 
               {/* Total */}
               <Tr>
                 <Td fontWeight='bold'>TOTAL</Td>
-                <Td>3</Td>
-                <Td>0</Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
+                <Td><AnimateScore>
+                  </AnimateScore></Td>
               </Tr>
               
               </Tbody>
