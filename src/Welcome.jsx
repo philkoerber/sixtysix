@@ -14,7 +14,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import useGameStore from './components/gameStore';
 import { motion, transform } from 'framer-motion';
 import sixtysix from "./components/pics/sixtysix.svg"
-import RulesetBody from './components/RulesetBody';
+import RulesetBody from './components/utilities/RulesetBody';
 
 
 const modalHeaderStyle = {

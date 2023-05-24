@@ -94,7 +94,6 @@ import { getShuffledDeck } from './utilities/gameLogic';
 //     }
 // ]
 
-const testTricks = []
 
 
 const useGameStore = create((set)=>({

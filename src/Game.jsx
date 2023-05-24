@@ -10,6 +10,7 @@ import useGameStore from './components/gameStore';
 import GameStates from './components/GameStates';
 import ScoreScreen from './components/ScoreScreen';
 import { AnimatePresence, motion } from 'framer-motion';
+import Points from './components/Points';
 
 function Game() {
     const {
@@ -86,9 +87,14 @@ function Game() {
                     <DrawStack />
 
                     
-                    <PlayerHand />
+
                     
-                    <GameStates/>
+                    <PlayerHand />
+
+                    <Points/>
+                    <GameStates />
+                    
+                    
                     
                 </motion.div>
             </AnimatePresence>
