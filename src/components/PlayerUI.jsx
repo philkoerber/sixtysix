@@ -1,7 +1,4 @@
 import { Box, Button, ButtonGroup, Heading, Icon, IconButton, SimpleGrid } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-
-
 import React, { useEffect, useState } from 'react';
 import useGameStore from './gameStore';
 import { BsFillSuitSpadeFill, BsFillSuitClubFill, BsFillSuitHeartFill, BsFillSuitDiamondFill } from "react-icons/bs";
@@ -14,7 +11,8 @@ const buttonStyles = {
     fontFamily: "bodyFont",
     variant: "outline",
     color: "white",
-    _hover: {bg: "#3E6990"}
+    bg: "#2e2c62",
+    _hover: {bg: "#4e5296"}
 }
 
 const marriageButtonStyles = {

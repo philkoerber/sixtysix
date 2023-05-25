@@ -273,3 +273,68 @@ export const getOpponentsCard = (oppHand, playedCards, drawStack, tricks, isGame
   else{
     return oppHand[randomIndex(oppHand)];}  
 }
+
+export const calculateRoundPoints = (playerPoints, oppPoints, closingPlayer) => {
+  let winner = null;
+  let points = 0;
+  let schneider = false;
+  let schwarz = false;
+
+  if (closingPlayer === "player") {
+    if (playerPoints >= 66) {
+      if (oppPoints >= 33) {
+        winner = "player";
+        points = 1;
+      } else if (oppPoints < 33) {
+        winner = "player";
+        points = 2;
+        schneider = true;
+      } else {
+        winner = "player";
+        points = 3;
+        schwarz = true;
+      }
+    } else if (playerPoints < 66 && playerPoints > oppPoints) {
+      points = 2;
+      winner = "opp";
+    } else if (playerPoints < 66 && playerPoints <= oppPoints && oppPoints >= 66) {
+      winner = "opp";
+      points = 2;
+    } else if (playerPoints < 66 && playerPoints <= oppPoints && oppPoints < 66) {
+      winner = "opp";
+      points = 3;
+    } else if (playerPoints < 66 && playerPoints < oppPoints && talonClosed) {
+      winner = "opp";
+      points = 2;
+    }
+  } else if (closingPlayer === "opp") {
+    if (oppPoints >= 66) {
+      if (playerPoints >= 33) {
+        winner = "opp";
+        points = 1;
+      } else if (playerPoints < 33) {
+        winner = "opp";
+        points = 2;
+        schneider = true;
+      } else {
+        winner = "opp";
+        points = 3;
+        schwarz = true;
+      }
+    } else if (oppPoints < 66 && oppPoints > playerPoints) {
+      winner = "player";
+      points = 2;
+    } else if (oppPoints < 66 && oppPoints <= playerPoints && playerPoints >= 66) {
+      winner = "player";
+      points = 2;
+    } else if (oppPoints < 66 && oppPoints <= playerPoints && playerPoints < 66) {
+      winner = "player";
+      points = 3;
+    } else if (oppPoints < 66 && oppPoints < playerPoints && talonClosed) {
+      winner = "player";
+      points = 2;
+    }
+  }
+
+  return { winner, points, schneider, schwarz };
+};

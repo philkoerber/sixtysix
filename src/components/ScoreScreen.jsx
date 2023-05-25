@@ -1,18 +1,23 @@
-import { Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, Divider, Flex, SimpleGrid, Spacer, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import useGameStore from './gameStore';
 import { AnimatePresence, motion } from 'framer-motion';
-import AnimateScore from './utilities/AnimateScore';
-import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai"
+import { calculateRoundPoints } from './utilities/gameLogic';
+// import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai"
 
-const buttonStyles = {
-    maxW: "180px",
-    size: "md",
-    fontSize: ["18px", "19px", "20px"],
-    fontFamily: "bodyFont",
-    variant: "outline",
-    color: "white",
-    _hover: {bg: "#3E6990"}
+const getAnimationProps = (index) => {
+  return ({
+    initial: { opacity: 0, translateY: 10 },
+    animate: { opacity: 1, translateY: 0 },
+    transition: {delay: index*0.4, duration: 0.6}})
+}
+
+const boxStyles = {
+  fontFamily: "bodyFont",
+}
+
+const dividerStyles = {
+  marginY: "1.5%"
 }
 
 function ScoreScreen(props) {
@@ -20,21 +25,37 @@ function ScoreScreen(props) {
   const {
     marriages,
     talonClosed,
+    setPlayerPoints,
     tricks,
-    resetGame} = useGameStore();
+    resetGame,
+    endRound} = useGameStore();
     
     const [trickPointsPlayer, setTrickPointsPlayer] = useState(0)
     const [trickPointsOpp, setTrickPointsOpp] = useState(0)
   
     const [marriagesPlayer, setMarriagesPlayer] = useState(0)
     const [marriagesOpp, setMarriagesOpp] = useState(0)
+    const [roundPoints, setRoundPoints] = useState(
+    {
+      winner: null,
+      points: 0,
+      schneider: false,
+      schwarz: false
+    })
+
 
 
     
   const handleNextClick = () => {
-      resetGame()
+    resetGame()
+  };
+
+  const handleAnimationComplete = () => {
+    roundPoints.winner
+      ? setTimeout(setPlayerPoints(roundPoints.winner, roundPoints.points), 800)
+      : null;
   }
-  
+
   useEffect(() => {
     let oppPoints = 0;
     tricks.map((trick) => { if (trick.winner === "opp") { oppPoints = oppPoints + trick.opp.rank + trick.player.rank } })
@@ -51,110 +72,104 @@ function ScoreScreen(props) {
     playerPoints = 0;
     marriages.player.map((marriage) => { playerPoints = playerPoints + marriage.points });
     setMarriagesPlayer(playerPoints);
-    console.log(playerPoints)
-  },[])
+  }, [])
 
-
+  useEffect(() => {
+    const winnerPoints = calculateRoundPoints(trickPointsPlayer+marriagesPlayer, trickPointsOpp+marriagesOpp, endRound);
+    setRoundPoints(winnerPoints);
+  }, [trickPointsPlayer, trickPointsOpp, marriagesOpp, marriagesPlayer])
+  
+ 
     return (
         <AnimatePresence>
-      <motion.div className='scoreScreenWrapper' >
+      <motion.div className='scoreScreenWrapper' {...getAnimationProps(0)}>
           <div
             className='scoreScreen'>
-            <Table
-              variant='simple'
-              fontFamily="bodyFont"
-              marginBottom={10}>
-              <Thead >
+            <div>
+              
+                <motion.div {...getAnimationProps(1)}>
+                  <Flex {...boxStyles} fontWeight={"bold"} fontSize={26}>
+                    <Box flex={2}>Game Points</Box>
+                    <Box textAlign={"center"} flex={1}>You</Box>
+                    <Box textAlign={"center"} flex={2}>Opponent</Box>
+                  </Flex>
+                </motion.div>
+
+                <Divider {...dividerStyles} />
+
+                <motion.div {...getAnimationProps(2)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={2}>Tricks</Box>
+                    <Box textAlign={"center"} flex={1}>{trickPointsPlayer}</Box>
+                    <Box textAlign={"center"} flex={2}>{trickPointsOpp}</Box>
+                  </Flex>
+                </motion.div>
+
+                <Divider {...dividerStyles} />
                 
-              <Tr >
-                <Th color='white' fontSize="20">Game Points</Th>
-                <Th color='white'>Player 1</Th>
-                <Th color='white'>Player 2</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
+                <motion.div {...getAnimationProps(3)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={2}>Marriages</Box>
+                    <Box textAlign={"center"} flex={1}>{marriagesPlayer}</Box>
+                    <Box textAlign={"center"} flex={2}>{marriagesOpp}</Box>
+                  </Flex>
+                </motion.div>
 
-                  <Tr>
-                <Td fontWeight='bold'>TRICKS</Td>
-                  <Td><AnimateScore>{trickPointsPlayer}</AnimateScore></Td>
-                  <Td><AnimateScore>{trickPointsOpp}</AnimateScore></Td>
-                </Tr>
-
-              {/* Trick */}
-              
+                <Divider {...dividerStyles} />
                 
-              {/* Announcements */}
-              <Tr>
-                <Td fontWeight='bold'>MARRIAGES</Td>
-                <Td><AnimateScore>{marriagesPlayer}
-                  </AnimateScore></Td>
-                <Td><AnimateScore>{marriagesOpp}
-                  </AnimateScore></Td>
-              </Tr>
+                <motion.div {...getAnimationProps(4)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={2}>Total</Box>
+                    <Box textAlign={"center"} flex={1}>{marriagesPlayer + trickPointsPlayer}</Box>
+                    <Box textAlign={"center"} flex={2}>{marriagesOpp + trickPointsOpp}</Box>
+                  </Flex>
+                </motion.div>
 
-              {/* Total */}
-              <Tr>
-                <Td fontWeight='bold'>TOTAL</Td>
-                <Td><AnimateScore>{trickPointsPlayer}+{marriagesPlayer}</AnimateScore></Td>
-                  <Td><AnimateScore>{trickPointsOpp}+{marriagesOpp}</AnimateScore></Td>
-              </Tr>
-              
-              </Tbody>
-              
-            </Table>
 
-            <Table variant='simple' fontFamily="bodyFont" marginBottom={10}>
-            <Thead >
-              <Tr >
-                <Th color='white' fontSize="20">Round Points</Th>
-                <Th color='white'>Player 1</Th>
-                <Th color='white'>Player 2</Th>
-              </Tr>
-            </Thead>
-              <Tbody>
-                
-               {/* Trick */}
-              <Tr>
-                <Td fontWeight='bold'>WON GAME</Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-                <Td></Td>
-                </Tr>
+                <motion.div {...getAnimationProps(5)}>
+                  <Flex {...boxStyles} fontWeight={"bold"} fontSize={26} marginTop={8}>
+                    <Box flex={1}>Round Points</Box>
+                    <Box textAlign="center" flex={2}>{roundPoints.winner==="player"?"You":"Opponent"}</Box>
+                  </Flex>
+                </motion.div>
 
-              {/* Trick */}
-              <Tr>
-                <Td fontWeight='bold'>CLOSED TALON</Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-                </Tr>
-                
-              {/* Announcements */}
-              <Tr>
-                <Td fontWeight='bold'>WIN DECLARED</Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-              </Tr>
+                <Divider {...dividerStyles} />
 
-              {/* Total */}
-              <Tr>
-                <Td fontWeight='bold'>TOTAL</Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-                <Td><AnimateScore>
-                  </AnimateScore></Td>
-              </Tr>
-              
-              </Tbody>
-              
-            </Table>
+                <motion.div {...getAnimationProps(6)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={1}>Game Won</Box>
+                    <Box textAlign="center" flex={2}>1</Box>
+                  </Flex>
+                </motion.div>
 
-            <Button {...buttonStyles} onClick={handleNextClick}>
-            Next...
-            </Button>
+                <Divider {...dividerStyles} />
+
+                <motion.div {...getAnimationProps(7)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={1}>Scheider</Box>
+                    <Box textAlign="center" flex={2}>{roundPoints.schneider ? "1" : "0"}</Box>
+                  </Flex>
+                </motion.div>
+
+                <Divider {...dividerStyles} />
+
+                <motion.div {...getAnimationProps(8)}>
+                  <Flex {...boxStyles} fontWeight={"bold"}>
+                    <Box flex={1}>Schwarz</Box>
+                    <Box textAlign="center" flex={2}>{roundPoints.schwarz ? "1" : "0"}</Box>
+                  </Flex>
+                </motion.div>
+
+                <Divider {...dividerStyles} />
+
+                <motion.div {...getAnimationProps(9)} onAnimationComplete={()=>{handleAnimationComplete()}}>
+                  <Flex {...boxStyles} fontWeight={"bold"} fontSize={"26"}>
+                    <Box flex={1}>Total</Box>
+                    <Box textAlign="center" flex={2}>{roundPoints.points}</Box>
+                  </Flex>
+                </motion.div>
+
+            </div>
           </div>
            
         </motion.div>
