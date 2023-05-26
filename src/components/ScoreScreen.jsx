@@ -9,7 +9,7 @@ const getAnimationProps = (index) => {
   return ({
     initial: { opacity: 0, translateY: 10 },
     animate: { opacity: 1, translateY: 0 },
-    transition: {delay: index*0.6, duration: 0.5}})
+    transition: {delay: index*0.2, duration: 0.4}})
 }
 
 const boxStyles = {
@@ -123,12 +123,48 @@ function ScoreScreen(props) {
  
     return (
         <AnimatePresence>
-      <motion.div className='scoreScreenWrapper' {...getAnimationProps(0)}>
+        <motion.div className='scoreScreenWrapper'
+          {...getAnimationProps(0)}
+          initial={{ opacity: 0, y: 10}}
+          animate={{ opacity: 1, y: 0}}
+          exit={{opacity: 0, y: -10}}
+          key={gameEnded}>
           <div
             className='scoreScreen'>
             <div>
               {gameEnded ?
-                (<div>hi</div>)
+                (<>
+
+                  <Flex textAlign={"center"}>
+                    <Box flex={1} fontSize={"30"} fontFamily={"cardFont"}>
+                    You
+                    </Box>
+                    <Box flex={1} fontSize={"30"} fontFamily={"cardFont"}>
+                    Opponent
+                  </Box>
+                  </Flex>
+
+                  <Divider {...dividerStyles}/>
+
+                  <Flex textAlign={"center"} marginBottom={4}>
+                    <Box flex={1} fontSize={"30"} fontFamily={"cardFont"}>
+                    {playerPoints.player}
+                    </Box>
+                    <Box flex={1} fontSize={"30"} fontFamily={"cardFont"}>
+                    {playerPoints.opp}
+                  </Box>
+                  </Flex>
+                  
+                <Flex>
+                  <Box margin={"auto"} fontSize={"20"} fontFamily={"bodyFont"}>
+                    You {playerPoints.player < playerPoints.opp ? "lost..." : "won!"}
+                  </Box>
+                </Flex>
+                  <Flex>
+                    
+                  <Button {...buttonStyles} margin={"auto"}>Play again!</Button></Flex>
+                  </>
+                )
                 :
                 (
                   <>
