@@ -81,8 +81,7 @@ body {
 }
 
 .scoreScreen {
-  padding: 3%;
-  background-color: antiquewhite;
+  padding: 2%;
   z-index: 30;
   width: 90%;
   max-width: 500px;

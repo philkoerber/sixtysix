@@ -116,7 +116,7 @@ const PlayerHand = () => {
               ? {
                   animationId: "playedCard",
                   ...((!isPlayerSwitchingTrumpCard)?cardPositions.playerCard:cardPositions.trumpCard),
-                  zIndex: (!isPlayerSwitchingTrumpCard)?index+10:0,
+                  zIndex: (!isPlayerSwitchingTrumpCard)?index+100:5,
                   transform: (!isPlayerSwitchingTrumpCard)?`rotate(0deg)`:`rotate(90deg)`,
                   transition: { type: "spring", bounce: 0 },
                 }
@@ -124,7 +124,7 @@ const PlayerHand = () => {
                   left: `${24.5 +(handcopy.indexOf(card) / handcopy.length) * 50}%`,
                   top: `${offsetHandCard(handcopy.length, handcopy.indexOf(card)) + 87}vh`,
                   scale: 1.2,
-                  zIndex: index+10,
+                  zIndex: (!isPlayerSwitchingTrumpCard?index+100:index+10),
                   transform: `rotate(${rotateHandCard(
                     handcopy.length,
                     handcopy.indexOf(card)

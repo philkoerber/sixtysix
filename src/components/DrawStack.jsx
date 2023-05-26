@@ -20,8 +20,10 @@ function DrawStack() {
             style={{
               position: "absolute",
               ...cardPositions.drawStack,
-              zIndex: 100
-            }}
+              zIndex: 50
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
           >
             {drawStack.length > 1 ? <Card card={{suit:"back"}}/> : null}
           </motion.div>
@@ -29,18 +31,26 @@ function DrawStack() {
             style={{
               position: "absolute",
               ...cardPositions.drawStack,
-              zIndex: 0
-            }}
-            animate={gameInitialized?{
+              zIndex: 40
+          }}
+          initial={{opacity: 0}}
+          
+          animate={gameInitialized ? {
+              opacity: 1,
               ...cardPositions.trumpCard,
               transform: cardPositions.trumpCard.transform,
             }:
             {
-              ...cardPositions.drawStack,
+                ...cardPositions.drawStack,
+                opacity: 1
             }}
             
           >
-            {!isPlayerSwitchingTrumpCard ? <Card card={drawStack[0]}/> : null}
+          {!isPlayerSwitchingTrumpCard
+            ? gameInitialized
+              ? <Card card={drawStack[0]} />
+              : <Card card={{ suit: "back" }} />
+            : null}
           </motion.div>
 
         </div>

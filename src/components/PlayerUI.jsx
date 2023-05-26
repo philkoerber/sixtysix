@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Heading, Icon, IconButton, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, IconButton, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useGameStore from './gameStore';
 import { BsFillSuitSpadeFill, BsFillSuitClubFill, BsFillSuitHeartFill, BsFillSuitDiamondFill } from "react-icons/bs";
@@ -23,6 +23,7 @@ const marriageButtonStyles = {
 
 function PlayerUI() {
     const {
+        gameCount,
         currentPlayer,
         talonClosed,
         setTalonClosed,
@@ -196,7 +197,7 @@ function PlayerUI() {
           icon={<BsFillSuitClubFill />}
           fontSize="25px"
           color="black"
-        />
+                    />
       </ButtonGroup>
                   </SimpleGrid>
   </Box>

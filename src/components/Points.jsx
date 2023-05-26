@@ -21,7 +21,7 @@ function Points() {
                     <Heading
                         fontFamily="cardFont"
                         textShadow="1px 1px 5px #000000"
-                        fontSize={["100", "120", "130"]}
+                        fontSize={["80", "100"]}
                         color={'white'}>{playerPoints.opp}</Heading>
                 </motion.div>
 
@@ -34,14 +34,12 @@ function Points() {
                     <Heading
                         fontFamily="cardFont"
                         textShadow="1px 1px 5px #000000"
-                        fontSize={["100", "110", "130"]}
+                        fontSize={["80", "100"]}
                         color={'white'}>{playerPoints.player}</Heading>
                 </motion.div>
 
         </AnimatePresence>
         </div>
-        
-        
     );
 }
 

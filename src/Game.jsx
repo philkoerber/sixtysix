@@ -14,6 +14,7 @@ import Points from './components/Points';
 
 function Game() {
     const {
+        gameCount,
         initializeDeck,
         setGameInitialized,
         gameInitialized,
@@ -30,7 +31,6 @@ function Game() {
     useEffect(()=>{
         //setting up game...
         if (!gameInitialized) {
-            setRenderKey(renderKey+1)
             const firstLeader = Math.floor(Math.random() * 2)===1?"player":"opp"
         initializeDeck();
         
@@ -67,7 +67,11 @@ function Game() {
                 setTimeout(()=>{setCurrentPlayer(winner)},400)
             }}
         }
-    },[tricks])
+    }, [tricks])
+    
+    useEffect(() => {
+        setTimeout(setGameInitialized(false),1000)
+    },[gameCount])
 
 
     return (
@@ -75,11 +79,16 @@ function Game() {
             <PlayerUI />
             <AnimatePresence>
                 <motion.div
-                    key={renderKey} className='gameWrapper'
+                    className='gameWrapper'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{opacity: 0}}>
-                    
+                    exit={{ opacity: 0 }}>
+                    <motion.div
+                        key={gameCount} 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0}}
+                    >
                     {endRound?<ScoreScreen/>:null}
                     <OppHand />
 
@@ -91,9 +100,13 @@ function Game() {
                     
                     <PlayerHand />
 
-                    <Points/>
+                    
                     <GameStates />
                     
+                    
+                    </motion.div>
+                    
+                    <Points/>
                     
                     
                 </motion.div>

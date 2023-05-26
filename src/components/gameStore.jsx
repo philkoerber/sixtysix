@@ -1,104 +1,13 @@
 import { create } from 'zustand';
 import { getShuffledDeck } from './utilities/gameLogic';
 
-// const testTricks = [
-//     {
-//         "player": {
-//             "rank": 11,
-//             "suit": "hearts",
-//             "id": "13",
-//             "isFirst": true
-//         },
-//         "opp": {
-//             "rank": 4,
-//             "suit": "hearts",
-//             "id": "15",
-//             "isFirst": false
-//         },
-//         "winner": "player"
-//     },
-//     {
-//         "player": {
-//             "rank": 11,
-//             "suit": "spades",
-//             "id": "1",
-//             "isFirst": true
-//         },
-//         "opp": {
-//             "rank": 10,
-//             "suit": "hearts",
-//             "id": "14",
-//             "isFirst": false
-//         },
-//         "winner": "opp"
-//     },
-//     {
-//         "player": {
-//             "rank": 2,
-//             "suit": "hearts",
-//             "id": "17",
-//             "isFirst": false
-//         },
-//         "opp": {
-//             "rank": 4,
-//             "suit": "diamonds",
-//             "id": "21",
-//             "isFirst": true
-//         },
-//         "winner": "player"
-//     },
-//     {
-//         "player": {
-//             "rank": 2,
-//             "suit": "clubs",
-//             "id": "11",
-//             "isFirst": true
-//         },
-//         "opp": {
-//             "rank": 3,
-//             "suit": "clubs",
-//             "id": "10",
-//             "isFirst": false
-//         },
-//         "winner": "opp"
-//     },
-//     {
-//         "player": {
-//             "rank": 0,
-//             "suit": "diamonds",
-//             "id": "24",
-//             "isFirst": false
-//         },
-//         "opp": {
-//             "rank": 10,
-//             "suit": "diamonds",
-//             "id": "20",
-//             "isFirst": true
-//         },
-//         "winner": "opp"
-//     },
-//     {
-//         "player": {
-//             "rank": 3,
-//             "suit": "diamonds",
-//             "id": "22",
-//             "isFirst": false
-//         },
-//         "opp": {
-//             "rank": 2,
-//             "suit": "diamonds",
-//             "id": "23",
-//             "isFirst": true
-//         },
-//         "winner": "player"
-//     }
-// ]
-
-
-
 const useGameStore = create((set)=>({
     gameStarted: true,
-    setGameStarted: (boolean) => set(()=>({gameStarted: boolean})),
+    setGameStarted: (boolean) => set(() => ({ gameStarted: boolean })),
+    
+    
+    gameEnded: false,
+    gameCount: 0,
 
     gameInitialized: false,
     setGameInitialized: (b) => set(()=>({gameInitialized:b})),
@@ -216,18 +125,27 @@ const useGameStore = create((set)=>({
   
   //End Game
 
-  resetGame: () => set(() => ({
-    gameInitialized: false,
-    playerHand: [],
-    oppPlayerHand: [],
-    drawStack: [],
-    playedCards: [],
-    currentPlayer: null,
-    playedCards: [],
-    talonClosed: false,
-    marriages: { player: [], opp: [] },
-    endRound: false
-  }))
+  resetGame: () => set((state) => {
+    return {
+      gameCount: state.gameCount + 1,
+
+      playerHand: [],
+      oppPlayerHand: [],
+      drawStack: [],
+      marriages: {player: [], opp:[]},
+      currentPlayer: null,
+      playedCards: { player: null, opp: null },
+      talonClosed: false,
+      endRound: false,
+    }
+  }),
+
+  endGame: () => set((state) => {
+    
+    return {
+      gameEnded: true,
+    }
+  }),
     
 }))
 

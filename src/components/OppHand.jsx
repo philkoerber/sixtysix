@@ -72,7 +72,7 @@ const OppHand = ({}) => {
             position: "absolute",
             ...cardPositions.drawStack,
             transform: "rotate(0deg)",
-            zIndex: index+11
+            zIndex: index+100
           }}
           className={"card"}
           animate={
@@ -80,14 +80,14 @@ const OppHand = ({}) => {
               ? {
                   animationId: "playedCard",
                   ...cardPositions.oppCard,
-                  zIndex: index+10,
+                  zIndex: index+100,
                   transform: `rotate(0deg)`,
                   transition: { type: "spring", bounce: 0 },
                 }
               : {
                   left: `${22 +(handcopy.indexOf(card) / handcopy.length) * 40}%`,
                   top: `${-1*offsetHandCard(handcopy.length, handcopy.indexOf(card)) + -8}vh`,
-                  zIndex: index+10,
+                  zIndex: index+100,
                   transform: `rotate(${-1*rotateHandCard(
                     handcopy.length,
                     handcopy.indexOf(card)
