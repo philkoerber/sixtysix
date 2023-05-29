@@ -76,7 +76,7 @@ function Game() {
 
     return (
         <div>
-            <PlayerUI />
+            
             <AnimatePresence>
                 <motion.div
                     className='gameWrapper'
@@ -103,7 +103,7 @@ function Game() {
                     
                     <GameStates />
                     
-                    
+                    <PlayerUI />
                     </motion.div>
                     
                     <Points/>

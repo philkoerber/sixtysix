@@ -10,7 +10,6 @@ function Points() {
     return (
         <div style={{height: "100%", width: "100%"}}>
             <AnimatePresence>
-                hi there
             {/* POINTS */}
                 <motion.div
                     key={playerPoints.opp + "opp"}

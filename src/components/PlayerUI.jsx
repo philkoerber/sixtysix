@@ -1,13 +1,14 @@
-import { Box, Button, ButtonGroup, IconButton, SimpleGrid } from '@chakra-ui/react';
+import { Button, Flex, ButtonGroup, IconButton, HStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useGameStore from './gameStore';
-import { BsFillSuitSpadeFill, BsFillSuitClubFill, BsFillSuitHeartFill, BsFillSuitDiamondFill } from "react-icons/bs";
+import { BsFillSuitSpadeFill, BsFillSuitClubFill, BsFillSuitHeartFill, BsFillSuitDiamondFill, BsArrowRepeat } from "react-icons/bs";
+import { FaRegFlag, } from "react-icons/fa";
+import {AiOutlineCloseCircle} from "react-icons/ai"
 
 
 const buttonStyles = {
-    maxW: "180px",
     size: "sm",
-    fontSize: ["14px", "15px", "16px"],
+    fontSize: ["10px", "14px", "16px"],
     fontFamily: "bodyFont",
     variant: "outline",
     color: "white",
@@ -53,7 +54,14 @@ function PlayerUI() {
     }
 
     const handleMarriageClick = (marriageSuit) => {
-        setMarriages("player", {suit: marriageSuit, points: 40})
+        let points = 20
+        if (drawStack[0]) {
+            if (marriageSuit === drawStack[0].suit) {
+                
+                points = 40
+            }
+        }
+        setMarriages("player", {suit: marriageSuit, points: points})
     }
 
     const handleSwitchClick = () => {
@@ -131,44 +139,54 @@ function PlayerUI() {
 
 
     return (
-  <Box
-    position="absolute"
-            top={["60%","70%"]}
-            width={"100%"}
-    zIndex={20}
-        >
-            <SimpleGrid
-                width={"40%"}
-                margin={["5%",'auto']}
-                spacing={2}
-                columns={[1, 2]}>
-
-          
-                <Button
+            <HStack
+                position={"absolute"}
+            top={"75%"}
+            left={"50%"}
+        transform={"translateX(-50%)"} >
+            <ButtonGroup
+                isAttached
+            top={"65%"}>
+<Button
                     {...buttonStyles}
+                    leftIcon={<AiOutlineCloseCircle fontSize={20}/>}
         isDisabled={!closeTalonPossible}
         onClick={() => { handleTalonClick() }}
       >
         Close Talon
       </Button>
 
+                
+                
                 <Button
-        {...buttonStyles}
+                    {...buttonStyles}
+                     leftIcon={<BsArrowRepeat fontSize={20}/>}
+        isDisabled={!switchPossible}
+        onClick={() => { handleSwitchClick() }}
+      >
+        Trump Card
+                </Button>
+                
+                
+       
+  
+            
+          
+   
+                <Button
+                    {...buttonStyles}
+                    leftIcon={<FaRegFlag fontSize={16} />}
         isDisabled={endRound || !(currentPlayer === "player") || !gameInitialized}
         onClick={() => { handleEndRoundClick() }}
       >
         End Game
                 </Button>
-                
-                <Button
-                    {...buttonStyles}
-        isDisabled={!switchPossible}
-        onClick={() => { handleSwitchClick() }}
-      >
-        Switch Trump Card
-      </Button>
 
-                <ButtonGroup
+      
+                
+            </ButtonGroup>
+
+                    <ButtonGroup
                 {...marriageButtonStyles}>
         <IconButton
           isDisabled={!enabledMarriageButtons.includes("diamonds")}
@@ -199,8 +217,7 @@ function PlayerUI() {
           color="black"
                     />
       </ButtonGroup>
-                  </SimpleGrid>
-  </Box>
+                </HStack>
 );
 }
 

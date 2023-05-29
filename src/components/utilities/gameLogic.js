@@ -184,20 +184,20 @@ export const isPlayerMoveLegal = (playerCard, playedCard, playerHand, trumpCard)
 }
 
 const cardArray = [
-  //spades
-  {rank: 11, suit: "spades", id:"1"}, //Ace
-  {rank: 10, suit: "spades", id:"2"}, //Ten
-  {rank: 4, suit: "spades", id:"3"},  //King
-  {rank: 3, suit: "spades", id:"4"},  //Queen
-  {rank: 2, suit: "spades", id:"5"},  //Jack
-  {rank: 0, suit: "spades", id:"6"},  //Nine
-   //clubs
-   {rank: 11, suit: "clubs", id:"7"},
-   {rank: 10, suit: "clubs", id:"8"},
-   {rank: 4, suit: "clubs", id:"9"},
-   {rank: 3, suit: "clubs", id:"10"},
-   {rank: 2, suit: "clubs", id:"11"},
-   {rank: 0, suit: "clubs", id:"12"},
+  //clubs
+  {rank: 11, suit: "clubs", id:"1"}, //Ace
+  {rank: 10, suit: "clubs", id:"2"}, //Ten
+  {rank: 4, suit: "clubs", id:"3"},  //King
+  {rank: 3, suit: "clubs", id:"4"},  //Queen
+  {rank: 2, suit: "clubs", id:"5"},  //Jack
+  {rank: 0, suit: "clubs", id:"6"},  //Nine
+   //spades
+   {rank: 11, suit: "spades", id:"7"},
+   {rank: 10, suit: "spades", id:"8"},
+   {rank: 4, suit: "spades", id:"9"},
+   {rank: 3, suit: "spades", id:"10"},
+   {rank: 2, suit: "spades", id:"11"},
+   {rank: 0, suit: "spades", id:"12"},
      //hearts
   {rank: 11, suit: "hearts", id:"13"},
   {rank: 10, suit: "hearts", id:"14"},

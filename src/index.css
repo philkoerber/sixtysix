@@ -73,7 +73,7 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  z-index: 300;
+  z-index: 500;
   top: 0;
   left: 0;
   right: 0;

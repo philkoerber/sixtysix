@@ -9,7 +9,7 @@ const getAnimationProps = (index) => {
   return ({
     initial: { opacity: 0, translateY: 10 },
     animate: { opacity: 1, translateY: 0 },
-    transition: {delay: index*0.2, duration: 0.4}})
+    transition: {delay: index*0.3, duration: 0.4}})
 }
 
 const boxStyles = {
@@ -68,7 +68,7 @@ function ScoreScreen(props) {
     
   const handleNextClick = () => {
     if (playerPoints.player > 6 || playerPoints.opp > 6) {
-      return null
+      endGame();
     }
     else {
       resetGame();
@@ -83,15 +83,6 @@ function ScoreScreen(props) {
       }, 800)
       : null;
   }
-
-  useEffect(() => {
-    if (playerPoints.player > 6 || playerPoints.opp > 6) {
-      endGame()
-    }
-    else {
-      
-    }
-  },[playerPoints])
 
   useEffect(() => {
     let oppPoints = 0;
@@ -258,7 +249,7 @@ function ScoreScreen(props) {
                   </Flex>
               </motion.div>
               
-              <motion.div {...getAnimationProps(12)}>
+              <motion.div {...getAnimationProps(15)}>
                 <Flex>
                   <Button onClick={() => { handleNextClick() }}
                     
