@@ -40,7 +40,7 @@ function Game() {
                 playerDrawsCard(k%2===1?"opp":"player");
                 if(k===11){setTimeout(()=>{setGameInitialized(true),
                     setCurrentPlayer(firstLeader)},800)};
-            }, 300 * (k + 1));
+            }, 330 * (k + 1));
         }
         }
     },[gameInitialized])
@@ -80,6 +80,7 @@ function Game() {
             <AnimatePresence>
                 <motion.div
                     className='gameWrapper'
+
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}>

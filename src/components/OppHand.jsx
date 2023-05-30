@@ -46,7 +46,12 @@ const OppHand = ({}) => {
     //if current player is the AI, get the card and play it
     if (currentPlayer === "opp") {
       
-      const card = getOpponentsCard(oppPlayerHand, playedCards, drawStack, talonClosed||drawStack===0)
+      const card = getOpponentsCard(
+        oppPlayerHand,
+        playedCards,
+        drawStack,
+        talonClosed || drawStack === 0,
+      )
       setCurrentPlayer(null);
       setTimeout(()=>{setSelectedCard(card);},
       500)

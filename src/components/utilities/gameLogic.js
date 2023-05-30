@@ -1,124 +1,3 @@
-const testDeck = [
-  {
-        "rank": 11,
-        "suit": "clubs",
-        "id": "7"
-    },
-  
-    {
-        "rank": 2,
-        "suit": "diamonds",
-        "id": "23"
-    },
-    {
-        "rank": 4,
-        "suit": "hearts",
-        "id": "15"
-    },
-    {
-        "rank": 3,
-        "suit": "hearts",
-        "id": "16"
-    },
-    {
-        "rank": 0,
-        "suit": "hearts",
-        "id": "18"
-    },
-    {
-        "rank": 0,
-        "suit": "spades",
-        "id": "6"
-    },
-    {
-        "rank": 10,
-        "suit": "spades",
-        "id": "2"
-    },
-    {
-        "rank": 4,
-        "suit": "diamonds",
-        "id": "21"
-    },
-    {
-        "rank": 3,
-        "suit": "clubs",
-        "id": "10"
-    },
-    {
-        "rank": 11,
-        "suit": "spades",
-        "id": "1"
-    },
-    {
-        "rank": 4,
-        "suit": "clubs",
-        "id": "9"
-    },
-    {
-        "rank": 3,
-        "suit": "diamonds",
-        "id": "22"
-    },
-    {
-        "rank": 11,
-        "suit": "hearts",
-        "id": "13"
-    },
-    {
-        "rank": 10,
-        "suit": "diamonds",
-        "id": "20"
-    },
-    {
-        "rank": 3,
-        "suit": "spades",
-        "id": "4"
-    },
-    
-    {
-        "rank": 11,
-        "suit": "diamonds",
-        "id": "19"
-    },
-    {
-        "rank": 0,
-        "suit": "diamonds",
-        "id": "24"
-    },
-    {
-        "rank": 4,
-        "suit": "spades",
-        "id": "3"
-  },
-    {
-        "rank": 0,
-        "suit": "clubs",
-        "id": "12"
-    },
-    {
-        "rank": 2,
-        "suit": "spades",
-        "id": "5"
-    },
-    {
-        "rank": 2,
-        "suit": "hearts",
-        "id": "17"
-    },
-    {
-        "rank": 10,
-        "suit": "hearts",
-        "id": "14"
-    },
-    {
-        "rank": 10,
-        "suit": "clubs",
-        "id": "8"
-  },
-    
-]
-
 export const compareTrick = (cards, drawStack) => {
 
   // Determine which card was played first and which was played second
@@ -233,6 +112,12 @@ export const getShuffledDeck = () => {
 export const getOpponentsCard = (oppHand, playedCards, drawStack, tricks, isGameSecondPhase) => {
   //getOpponentsMove returns an object of the card that the opponent wants to play,
   //plus an object of an announcement
+  console.log(isGameSecondPhase)
+  //first check if opp has reached 66 points, because he will end the game then.
+  
+
+
+
   const randomIndex = (array) => Math.floor(Math.random() * array.length);
   //playing lead or not?
   //not lead

@@ -46,7 +46,9 @@ function ScoreScreen(props) {
     resetGame,
     endGame,
     gameEnded,
-    endRound} = useGameStore();
+    endRound,
+    setGameStarted,
+    resetGameStates} = useGameStore();
     
     const [trickPointsPlayer, setTrickPointsPlayer] = useState(0)
     const [trickPointsOpp, setTrickPointsOpp] = useState(0)
@@ -74,6 +76,11 @@ function ScoreScreen(props) {
       resetGame();
     }
   };
+
+  const handlePlayAgainClick = () => {
+    setGameStarted(false);
+    resetGameStates();
+  }
 
   const handleAnimationComplete = () => {
     roundPoints.winner
@@ -153,7 +160,10 @@ function ScoreScreen(props) {
                 </Flex>
                   <Flex>
                     
-                  <Button {...buttonStyles} margin={"auto"}>Play again!</Button></Flex>
+                    <Button
+                      {...buttonStyles}
+                      margin={"auto"}
+                      onClick={()=>{handlePlayAgainClick()}}>Play again!</Button></Flex>
                   </>
                 )
                 :

@@ -31,7 +31,7 @@ const modalTextStyle = {
 
 function Welcome(props) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const {setGameStarted} = useGameStore();
+    const {setGameStarted, resetGameCount} = useGameStore();
     const [animationIndex ,setAnimationIndex] = useState(0)
 
     useEffect((()=>{
@@ -41,7 +41,8 @@ function Welcome(props) {
     }),[])
 
 
-    const handleStartButton = () => {
+  const handleStartButton = () => {
+        resetGameCount();
         setGameStarted(true);
     }
  

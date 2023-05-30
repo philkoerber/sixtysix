@@ -8,6 +8,7 @@ const useGameStore = create((set)=>({
     
     gameEnded: false,
     gameCount: 0,
+    resetGameCount: () => set(()=>({gameCount: 0, playerPoints: {player: 0, opp: 0}})),
 
     gameInitialized: false,
     setGameInitialized: (b) => set(()=>({gameInitialized:b})),
@@ -147,6 +148,19 @@ const useGameStore = create((set)=>({
       gameEnded: true,
     }
   }),
+
+  resetGameStates: () => set((state) => ({
+      gameEnded: false,
+      playerHand: [],
+      oppPlayerHand: [],
+      drawStack: [],
+      tricks: [],
+      marriages: {player: [], opp:[]},
+      currentPlayer: null,
+      playedCards: { player: null, opp: null },
+      talonClosed: false,
+      endRound: false,
+  }))
     
 }))
 
