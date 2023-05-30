@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { getShuffledDeck } from './utilities/gameLogic';
 
 const useGameStore = create((set)=>({
-    gameStarted: true,
+    gameStarted: false,
     setGameStarted: (boolean) => set(() => ({ gameStarted: boolean })),
     
     
@@ -132,6 +132,7 @@ const useGameStore = create((set)=>({
       playerHand: [],
       oppPlayerHand: [],
       drawStack: [],
+      tricks: [],
       marriages: {player: [], opp:[]},
       currentPlayer: null,
       playedCards: { player: null, opp: null },

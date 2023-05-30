@@ -9,7 +9,7 @@ function Marriage(props) {
         getKingIndex = 21;
     } else if (props.suit === "hearts") {
         getKingIndex = 15;
-    } else if (props.suit === "clubs") {
+    } else if (props.suit === "spades") {
         getKingIndex = 9;
     } else {
         getKingIndex = 3;

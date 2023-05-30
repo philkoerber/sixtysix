@@ -1,4 +1,4 @@
-import { Button, Flex, ButtonGroup, IconButton, HStack } from '@chakra-ui/react';
+import { Button, Grid, ButtonGroup, IconButton } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useGameStore from './gameStore';
 import { BsFillSuitSpadeFill, BsFillSuitClubFill, BsFillSuitHeartFill, BsFillSuitDiamondFill, BsArrowRepeat } from "react-icons/bs";
@@ -7,8 +7,9 @@ import {AiOutlineCloseCircle} from "react-icons/ai"
 
 
 const buttonStyles = {
-    size: "sm",
+    size: ["sm", "sm", "md"],
     fontSize: ["10px", "14px", "16px"],
+    
     fontFamily: "bodyFont",
     variant: "outline",
     color: "white",
@@ -17,14 +18,17 @@ const buttonStyles = {
 }
 
 const marriageButtonStyles = {
-    size: "sm",
+    display: "flex",
+    justifyContent: "center",
+    isAttached: "true",
+    size: ["sm", "sm", "md"],
+    
     variant: "outline",
     color: "white",
 }
 
 function PlayerUI() {
     const {
-        gameCount,
         currentPlayer,
         talonClosed,
         setTalonClosed,
@@ -139,17 +143,51 @@ function PlayerUI() {
 
 
     return (
-            <HStack
-                position={"absolute"}
-            top={"75%"}
-            left={"50%"}
-        transform={"translateX(-50%)"} >
+        <Grid
+            templateColumns={{ sm: "1fr", md: "1fr 1fr" }}
+
+      gap={1}
+      position="absolute"
+      top="70%"
+      left="50%"
+            transform="translateX(-50%)"
+        alignItems="center">
+                    <ButtonGroup
+                {...marriageButtonStyles}>
+                
+        <IconButton
+          isDisabled={!enabledMarriageButtons.includes("diamonds")}
+          onClick={() => { handleMarriageClick("diamonds") }}
+          icon={<BsFillSuitDiamondFill/>}
+          color="red"
+        />
+        <IconButton
+          isDisabled={!enabledMarriageButtons.includes("spades")}
+          onClick={() => { handleMarriageClick("spades") }}
+          icon={<BsFillSuitSpadeFill/>}
+          color="black"
+        />
+        <IconButton
+                    isDisabled={!enabledMarriageButtons.includes("hearts")}
+          onClick={() => { handleMarriageClick("hearts") }}
+                    icon={<BsFillSuitHeartFill />}
+          color="red"
+        />
+        <IconButton
+          isDisabled={!enabledMarriageButtons.includes("clubs")}
+          onClick={() => { handleMarriageClick("clubs") }}
+                    icon={<BsFillSuitClubFill />}
+          color="black"
+                    />
+            </ButtonGroup>
+            
             <ButtonGroup
                 isAttached
+                
             top={"65%"}>
 <Button
                     {...buttonStyles}
-                    leftIcon={<AiOutlineCloseCircle fontSize={20}/>}
+                    leftIcon={<AiOutlineCloseCircle fontSize={18}/>}
         isDisabled={!closeTalonPossible}
         onClick={() => { handleTalonClick() }}
       >
@@ -160,22 +198,16 @@ function PlayerUI() {
                 
                 <Button
                     {...buttonStyles}
-                     leftIcon={<BsArrowRepeat fontSize={20}/>}
+                     leftIcon={<BsArrowRepeat fontSize={18}/>}
         isDisabled={!switchPossible}
         onClick={() => { handleSwitchClick() }}
       >
         Trump Card
                 </Button>
-                
-                
-       
-  
-            
-          
    
                 <Button
                     {...buttonStyles}
-                    leftIcon={<FaRegFlag fontSize={16} />}
+                    leftIcon={<FaRegFlag fontSize={14} />}
         isDisabled={endRound || !(currentPlayer === "player") || !gameInitialized}
         onClick={() => { handleEndRoundClick() }}
       >
@@ -185,39 +217,7 @@ function PlayerUI() {
       
                 
             </ButtonGroup>
-
-                    <ButtonGroup
-                {...marriageButtonStyles}>
-        <IconButton
-          isDisabled={!enabledMarriageButtons.includes("diamonds")}
-          onClick={() => { handleMarriageClick("diamonds") }}
-          icon={<BsFillSuitDiamondFill />}
-          fontSize="25px"
-          color="red"
-        />
-        <IconButton
-          isDisabled={!enabledMarriageButtons.includes("spades")}
-          onClick={() => { handleMarriageClick("spades") }}
-          icon={<BsFillSuitSpadeFill />}
-          fontSize="25px"
-          color="black"
-        />
-        <IconButton
-          isDisabled={!enabledMarriageButtons.includes("hearts")}
-          onClick={() => { handleMarriageClick("hearts") }}
-          icon={<BsFillSuitHeartFill />}
-          fontSize="25px"
-          color="red"
-        />
-        <IconButton
-          isDisabled={!enabledMarriageButtons.includes("clubs")}
-          onClick={() => { handleMarriageClick("clubs") }}
-          icon={<BsFillSuitClubFill />}
-          fontSize="25px"
-          color="black"
-                    />
-      </ButtonGroup>
-                </HStack>
+                </Grid>
 );
 }
 

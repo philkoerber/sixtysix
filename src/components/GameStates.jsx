@@ -50,7 +50,7 @@ function GameStates(props) {
                     <motion.div
                         style={{ position: "relative" }}
                         key={marriage.suit + index}
-                        initial={{ x: `${(index * -20 + 72)}%`, y: "60vh" }}>
+                        initial={{ x: `${(index * -20 + 72)}%`, y: "56vh" }}>
                         <Marriage suit={marriage.suit} points={marriage.points} />
                     </motion.div>
                 ))}

@@ -13,6 +13,7 @@ body {
 .app {
   background: rgb(78, 82, 150);
   background: radial-gradient(circle, #4e5296 0%, #2e2c62 100%);
+  min-height: 500px;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -42,10 +43,10 @@ body {
 }
 
 .modalcontent {
-  background: rgb(160, 167, 209, 0.5);
+  background: rgba(159, 165, 209, 1);
   background: linear-gradient(
     0deg,
-    rgba(160, 167, 209, 0.3) 0%,
+    #a0a7d14d 0%,
     rgba(225, 225, 245, 0.3) 100%
   );
 
@@ -88,7 +89,7 @@ body {
 
   color: white;
   border-radius: 5px;
-  background-color: rgba(46, 44, 98, 0.9);
+  background-color: #2e2c62e6;
   backdrop-filter: blur(6px);
 }
 
@@ -97,4 +98,8 @@ body {
   position: absolute;
   z-index: 200;
   color: crimson;
+}
+
+.ok {
+  background-color: #2e2c63;
 }

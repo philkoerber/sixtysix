@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion"
-import { Heading } from '@chakra-ui/react';
+import { Text, Box, VStack, StackDivider } from '@chakra-ui/react';
 import useGameStore from './gameStore';
 
 function Points() {
@@ -10,32 +10,57 @@ function Points() {
     return (
         <div style={{height: "100%", width: "100%"}}>
             <AnimatePresence>
-            {/* POINTS */}
-                <motion.div
-                    key={playerPoints.opp + "opp"}
-                    style={{ marginTop: "15vh", position: "absolute", right: "3%" }}
-                    initial={{ y: "-150px", opacity: 0 }}
-                    animate={{ y: "0px", opacity: 1 }}
-                    exit={{ y: "150px", opacity: 0 }}>
-                    <Heading
-                        fontFamily="cardFont"
-                        textShadow="1px 1px 5px #000000"
-                        fontSize={["80", "100"]}
-                        color={'white'}>{playerPoints.opp}</Heading>
-                </motion.div>
+                <Box
+                    position={"absolute"}
+                    height={"30%"}
+                    width={"200px"}
+                    right={"0px"}
+                    top={"50%"}
+                    transform={"translateY(-50%)"}
+                    rounded={"5px"}
+                    color={"#FFFCF2"}
+                    padding={"20px"}
+                    
+                >
+                    <VStack
+                        fontSize={["10vh", "12vh", "14vh"]}
+                        justifyContent={"center"}
+                        fontFamily={"cardFont"}
+                        height={"100%"}>
+                        <Box
+                            textAlign={"right"}
+                            width={"100%"}>
+                            <motion.div 
+                            key={"opp" + playerPoints.opp}
+                            initial={{opacity: 0, y: 100}}
+                            animate={{opacity: 1, y: 0}}
+                            exit={{opacity: 0, y: -100}}>
+                                {playerPoints.opp}
+                            </motion.div>
+                            
+                        </Box>
+                        <Text
+                            fontFamily={"bodyFont"}
+                            textAlign={"right"}
+                            width={"100%"}
+                            fontSize={["14", "16", "18"]}>...first to 7</Text>
+                        <Box
+                            textAlign={"right"}
+                            width={"100%"}>
+                        <motion.div 
+                        key={"player" + playerPoints.player}
+                        initial={{opacity: 0, y: 100}}
+                        animate={{opacity: 1, y: 0}}
+                        exit={{opacity: 0, y: -100}}>
+                                {playerPoints.player}
+                            </motion.div>
+                        </Box>
+                    </VStack>
+                    
 
-                <motion.div
-                    key={playerPoints.player + "player"}
-                    style={{ marginTop: "70vh", position: "absolute", right: "3%"}}
-                    initial={{ y: "-150px", opacity: 0 }}
-                    animate={{ y: "0px", opacity: 1 }}
-                    exit={{ y: "150px", opacity: 0 }}>
-                    <Heading
-                        fontFamily="cardFont"
-                        textShadow="1px 1px 5px #000000"
-                        fontSize={["80", "100"]}
-                        color={'white'}>{playerPoints.player}</Heading>
-                </motion.div>
+                </Box>
+            {/* POINTS */}
+                
 
         </AnimatePresence>
         </div>
