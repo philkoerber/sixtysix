@@ -23,7 +23,9 @@ const OppHand = ({}) => {
     currentPlayer,
     setCurrentPlayer,
     drawStack,
-    talonClosed} = useGameStore();
+    tricks,
+    talonClosed,
+    setEndRound} = useGameStore();
 
   
   useEffect(() => {
@@ -45,15 +47,25 @@ const OppHand = ({}) => {
   useEffect(()=>{
     //if current player is the AI, get the card and play it
     if (currentPlayer === "opp") {
-      
       const card = getOpponentsCard(
         oppPlayerHand,
         playedCards,
         drawStack,
-        talonClosed || drawStack === 0,
+        (!!talonClosed || drawStack === 0),
+        tricks,
+
+
       )
       setCurrentPlayer(null);
-      setTimeout(()=>{setSelectedCard(card);},
+      setTimeout(() => {
+        if (card === "endRound") {
+          setEndRound("opp")
+        }
+        else {
+          setSelectedCard(card);
+        }
+        
+      },
       500)
     }
 

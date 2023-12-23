@@ -38,7 +38,15 @@ function Welcome(props) {
         setTimeout(()=>{setAnimationIndex(1)},800)
         setTimeout(()=>{setAnimationIndex(2)},1500)
         setTimeout(()=>{setAnimationIndex(3)},2100)
-    }),[])
+    }), [])
+  
+  const openWebsiteAndScroll = () => {
+  // Open the website in a new tab/window
+  window.open('https://philippkoerber.netlify.app', '_blank');
+
+  // Scroll to the bottom of the page
+  window.scrollTo(0, document.body.scrollHeight);
+};
 
 
   const handleStartButton = () => {
@@ -111,13 +119,14 @@ function Welcome(props) {
         </ModalContent>
       </Modal>
     
-    {/* CONTACT ME MODAL */}
+    {/* CONTACT ME */}
           <motion.div
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
             className="welcome"
             initial={{ scale: 0 }}
-            animate={animationIndex > 2 ? { rotate: 12, scale: 1, x: "25%", y: "20%" } : {}}>
+            animate={animationIndex > 2 ? { rotate: 12, scale: 1, x: "25%", y: "20%" } : {}}
+          onClick={()=>openWebsiteAndScroll()}>
             <Text
               textShadow="1px 1px 3px #000000"
               fontSize={[15, 20]}>You like the App?</Text>

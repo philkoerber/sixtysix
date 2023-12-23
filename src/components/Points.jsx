@@ -23,7 +23,7 @@ function Points() {
                     
                 >
                     <VStack
-                        fontSize={["10vh", "12vh", "14vh"]}
+                        fontSize={["8vh", "10vh", "12vh"]}
                         justifyContent={"center"}
                         fontFamily={"cardFont"}
                         height={"100%"}>

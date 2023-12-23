@@ -109,14 +109,25 @@ export const getShuffledDeck = () => {
   return shuffle(cardArray);
 }
 
-export const getOpponentsCard = (oppHand, playedCards, drawStack, tricks, isGameSecondPhase) => {
+export const getOpponentsCard = (
+  oppHand,
+  playedCards,
+  drawStack,
+  isGameSecondPhase,
+  tricks) => {
   //getOpponentsMove returns an object of the card that the opponent wants to play,
   //plus an object of an announcement
-  console.log(isGameSecondPhase)
-  //first check if opp has reached 66 points, because he will end the game then.
   
+  //first check if opp has reached 66 points, because he will end the game then.
 
+  let opponentsPoints = 0;
+  tricks.map((trick) => {
+    trick.winner === "opp"
+      ? opponentsPoints = opponentsPoints + (trick.player.rank + trick.opp.rank)
+      : null
+  });
 
+  if(opponentsPoints>65){return "endRound"}
 
   const randomIndex = (array) => Math.floor(Math.random() * array.length);
   //playing lead or not?
@@ -139,7 +150,7 @@ export const getOpponentsCard = (oppHand, playedCards, drawStack, tricks, isGame
             winnerCards.push(card)
           }
           else {
-            return null
+            return oppHand[randomIndex(oppHand)]
           }
         }
         
